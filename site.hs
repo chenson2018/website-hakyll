@@ -7,7 +7,7 @@ import Text.Pandoc.Options
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
-    match "images/*" $ do
+    match "files/**" $ do
         route   idRoute
         compile copyFileCompiler
 

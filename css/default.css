@@ -1,11 +1,22 @@
-html {
-  font-size: 62.5%;
+a {
+  color: #6495ED
+}
+
+nav a:visited {
+  color: #EDEADE
 }
 
 body {
-  font-size: 1.6rem;
-  color: #000;
-}
+  font-family: Consolas, Monospace, Courier;
+  font-size: 16px;
+  max-width: 80em;
+  width: 100%;
+  padding-left: 2%;
+  padding-right: 3%;
+  margin: 0 auto;
+  background: #28282B;
+  color: #EDEADE;
+} 
 
 header {
   border-bottom: 0.2rem solid #000;
@@ -16,27 +27,27 @@ nav {
 }
 
 nav a {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  color: black;
+  color: #EDEADE;
   text-decoration: none;
   text-transform: uppercase;
 }
 
 footer {
-  margin-top: 3rem;
-  padding: 1.2rem 0;
+  margin-top: 1.75rem;
+  padding: 1rem 0;
   border-top: 0.2rem solid #000;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: #555;
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 2rem;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   text-decoration: underline;
 }
 
@@ -44,11 +55,12 @@ article .header {
   font-size: 1.4rem;
   font-style: italic;
   color: #555;
+  margin-top: -20px;
 }
 
 .logo a {
   font-weight: bold;
-  color: #000;
+  color: #EDEADE;
   text-decoration: none;
 }
 
@@ -117,7 +129,7 @@ article .header {
     padding: 0;
   }
   header {
-    margin: 0 0 3rem;
+    margin: 0 0 1rem;
     padding: 1.2rem 0;
   }
   nav {
@@ -137,7 +149,7 @@ article .header {
   }
   .logo a {
     float: left;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
