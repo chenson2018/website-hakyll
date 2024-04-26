@@ -1,6 +1,10 @@
 ---
-title: About
+title: About Me
+hide_title: true
 ---
+
+## About Me
+
 I am a first-year CS PhD student at Drexel University, advised by [Colin
 Gordon](https://www.cs.drexel.edu/~csg63/). My research interests are broadly in
 Programming Languages. 
@@ -16,7 +20,9 @@ Finance group in Atlanta. During this time I worked primarily with code related
 to interest rate products and modernizing the department's DevOps
 infrastructure.
 
-# Contact
+For more details, see my [CV](/files/Henson_CV.pdf).
+
+## Contact
 
 Email: [ch3473@drexel.edu ](mailto:ch3473@drexel.edu)
 \

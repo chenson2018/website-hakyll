@@ -14,14 +14,16 @@
                 <a href="/">Chris Henson</a>
             </div>
             <nav>
-                <a href="/">Home</a>
+                <a href="/">Posts</a>
                 <a href="/about.html">About</a>
-                <a href="/archive.html">Archive</a>
             </nav>
         </header>
 
         <main role="main">
-            <h1>$title$</h1>
+            $if(hide_title)$
+            $else$
+              <h1>$title$</h1>
+            $endif$
             $body$
         </main>
 
