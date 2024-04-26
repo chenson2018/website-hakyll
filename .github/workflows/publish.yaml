@@ -1,0 +1,18 @@
+on: [push]
+name: build
+jobs:
+  runhaskell:
+    name: GitHub Pages
+    runs-on: ubuntu-latest # or macOS-latest, or windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: haskell-actions/setup@v2
+      - run: cabal run site build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: _site
+          keep_files: false
+    permissions:
+      contents: write    
