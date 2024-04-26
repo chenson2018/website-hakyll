@@ -3,6 +3,7 @@
 import Data.Monoid (mappend)
 import Hakyll
 import Text.Pandoc.Options
+import Text.Pandoc.Highlighting
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -10,6 +11,15 @@ main = hakyll $ do
     match "files/**" $ do
         route   idRoute
         compile copyFileCompiler
+
+    match "favicon.ico" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    create ["css/syntax.css"] $ do
+      route idRoute
+      compile $ do
+        makeItem $ styleToCss espresso
 
     match "css/*" $ do
         route   idRoute
@@ -23,7 +33,8 @@ main = hakyll $ do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompilerWith defaultHakyllReaderOptions (defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "" })
+        let writer = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "", writerHighlightStyle = Just espresso}
+        compile $ pandocCompilerWith defaultHakyllReaderOptions writer
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls

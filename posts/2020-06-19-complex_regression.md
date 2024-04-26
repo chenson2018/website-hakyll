@@ -11,7 +11,7 @@ a look at visualizing complex-valued functions in Python.
 For simplicity, I will be restricting myself to functions of one complex variable so that we have clear visualizations.
 This construction is fairly straightforward, so I'll just give the code and then a brief review of what is happening.
 
-```
+```python
 import cmath
 import numpy as np
 import pandas as pd
@@ -83,29 +83,29 @@ This class can both visualize a complex function of one variable and generate a 
 The initialization also stores the input grid as well as the result of applying the function. As an example, suppose that I have the function $z = (1+i)w + (-1+2i)$. I can define this
 function:
 
-```
+```python
 def f(w):
     return complex(1,1)*w+complex(-1,2)
 ```
 
 I will create an instance of my class:
 
-```
+```python
 test = complex_function(grid_min = -2, 
                         grid_max =  2,
                         grid_step= .1, 
                         function =  f)
 ```
 
-Now if I call the method ```test.plot()``` I will have the following graph:
+Now if I call the method `test.plot()`{.python} I will have the following graph:
 
 <img src="/files/complex_regression/function.png" height="900" width="900">
 
-Finally in the ```generate_sample``` method, we add a normally distributed amount of noise to each evaluation of the function. We can specify 
-```var_scale```, a constant that is multiplied by our covariance matrix to determine the
+Finally in the `generate_sample`{.python} method, we add a normally distributed amount of noise to each evaluation of the function. We can specify 
+`var_scale`{.python}, a constant that is multiplied by our covariance matrix to determine the
 spread of our added noise. I have chosen to make this covariance matrix diagonal, representing that the noise added in the real and complex directions is independent. 
 
-Calling this method with ```test.generate_sample(var_scale= .1, plot = True)``` gives:
+Calling this method with `test.generate_sample(var_scale= .1, plot = True)`{.python} gives:
 
 <img src="/files/complex_regression/sample.png" height="900" width="900">
 
@@ -128,7 +128,7 @@ where $X$ is our matrix of observations $w_j$ and $X^* = \overline{X}^T$ is the 
 
 In Python, I can implement this as another class object which is initialized with two arrays of observations, with $W$ as our independent variable and $Z$ as the response variable:
 
-```
+```python
 class complex_linear_regression:
     def fit(self, W, Z):
         W = W.ravel()
@@ -167,21 +167,21 @@ class complex_linear_regression:
 
 As an example, I will use the same function I used above:
 
-```
+```python
 Z = test.generate_sample(var_scale = .1, plot = False)
 W = test.input_grid
 ```
 
 I first define and fit the regression to my data:
 
-```
+```python
 reg = complex_linear_regression()
 reg.fit(W, Z)
 ```
 
-At this point I am able to view the regressions's coefficients ```reg.beta```:
+At this point I am able to view the regressions's coefficients `reg.beta`{.python}:
 
-```
+```python
 array([[-0.99465742+2.0105358j ],
        [ 0.99627609+1.00742867j]])
 ```
@@ -190,7 +190,7 @@ As I only added a very small amount of noise, we can see that the predicted coef
 
 I can use the predict method to see what values my regression will predict and compare the predicted and actual values for our target variable:
 
-```
+```python
 predictions = reg.predict(W, plot = False)
 values = {'Actual':Z, 'Predicted':predictions}
 residual = pd.DataFrame(values)
@@ -202,7 +202,7 @@ Here is the data frame (as appears in Jupyter):
 
 I have also included a method to visualize these residuals and return the mean loss (the difference in modulus between predicted and actual values):
 
-```
+```python
 reg.residual(W, Z, plot = True)
 ```
 
