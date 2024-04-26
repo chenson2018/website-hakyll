@@ -5,6 +5,8 @@ jobs:
     name: GitHub Pages
     runs-on: ubuntu-latest # or macOS-latest, or windows-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Set up GHC
         uses: haskell-actions/setup@v2
         id: setup
@@ -44,7 +46,8 @@ jobs:
           path: ${{ steps.setup.outputs.cabal-store }}
           key: ${{ steps.cache.outputs.cache-primary-key }}
 
-      - run: |
+      - name: Build Site
+        run: |
           rm -rf _cache/ _site/
           cabal run site build
 
