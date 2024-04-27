@@ -1,5 +1,6 @@
 ---
 title: Regression with Complex Numbers in Python
+tags: Statistics, Python
 ---
 
 This is a small aside that didn't quite fit into my article about linear regression. Suppose that we want to do regression with complex numbers. 

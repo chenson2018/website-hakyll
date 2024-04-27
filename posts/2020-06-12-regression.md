@@ -1,5 +1,6 @@
 ---
 title: What is Regression?
+tags: Statistics
 ---
 
 *A pdf document with the same content is availible [here](/files/regression/regression.pdf).*
