@@ -153,7 +153,7 @@ article .header {
     font-size: 1.6rem;
   }
   pre.sourceCode {
-    width: 60rem;
+    min-width: 60rem;
   }
 }
 
