@@ -104,6 +104,7 @@ customHighlight =
   kate 
     { 
         backgroundColor = Just (RGB 2 2 9)
+      , lineNumberBackgroundColor = Just (RGB 2 2 9)
       , defaultColor = Just (RGB 237 234 222)
       , tokenStyles = 
           Map.insert 

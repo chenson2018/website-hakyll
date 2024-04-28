@@ -153,6 +153,11 @@ article .header {
   }
 }
 
+/* */
+.sourceCode {
+  background: #020209;
+}
+
 pre.sourceCode {
   padding: 2px;
   border: 1px solid #888;
