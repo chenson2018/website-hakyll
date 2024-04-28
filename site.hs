@@ -2,8 +2,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Data.Monoid (mappend)
 import Hakyll
-import Text.Pandoc.Options
-import Text.Pandoc.Highlighting
+import Text.Pandoc.Options (writerHTMLMathMethod, writerHighlightStyle, HTMLMathMethod(MathJax))
+import Skylighting.Format.HTML (styleToCss)
+import Skylighting.Styles (kate)
+import Skylighting.Types hiding (Context, Item)
+import qualified Data.Map as Map
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -34,7 +37,7 @@ main = hakyll $ do
     create ["css/syntax.css"] $ do
       route idRoute
       compile $ do
-        makeItem $ styleToCss espresso
+        makeItem $ styleToCss customHighlight
 
     match "css/*" $ do
         route   idRoute
@@ -48,7 +51,7 @@ main = hakyll $ do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        let writer = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "", writerHighlightStyle = Just espresso}
+        let writer = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "", writerHighlightStyle = Just customHighlight}
         compile $ pandocCompilerWith defaultHakyllReaderOptions writer
             >>= loadAndApplyTemplate "templates/post.html"    (tagsField "tags" tags <> postCtx)
             >>= loadAndApplyTemplate "templates/default.html" postCtx
@@ -91,3 +94,35 @@ defaultCtxWithTags tags = listField "tags" tagsCtx getAllTags `mappend` defaultC
   where 
     getAllTags = pure . map (\x@(t, _) -> Item (tagsMakeId tags t) x) $ tagsMap tags
     tagsCtx = foldl1 mappend [metadataField, urlField "url", titleField "title"]
+
+-- a somewhat custom style for syntax highlighting
+-- see https://hackage.haskell.org/package/skylighting-0.4/docs/src/Skylighting-Styles.html#kate
+
+customHighlight :: Style
+customHighlight = 
+  kate 
+    { 
+        backgroundColor = Just (RGB 2 2 9)
+      , defaultColor = Just (RGB 237 234 222)
+      , tokenStyles = 
+          Map.insert 
+            KeywordTok 
+            defStyle { tokenColor = Just (RGB 255 85 0), tokenBold = True } 
+          .
+          Map.insert 
+            ControlFlowTok
+            defStyle { tokenColor = Just (RGB 255 85 0), tokenBold = True } 
+          .
+          Map.insert 
+            OperatorTok
+            defStyle { tokenColor = Just (RGB 237 234 222), tokenBold = True } 
+          .
+          Map.insert 
+            ControlFlowTok
+            defStyle { tokenColor = Just (RGB 255 85 0), tokenBold = True } 
+          .
+          Map.insert 
+            NormalTok
+            defStyle { tokenColor = Just (RGB 237 234 222), tokenBold = True } 
+          $ tokenStyles kate
+    }
