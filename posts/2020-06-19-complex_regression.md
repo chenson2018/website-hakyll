@@ -100,7 +100,7 @@ test = complex_function(grid_min = -2,
 
 Now if I call the method `test.plot()`{.python} I will have the following graph:
 
-<img src="/files/complex_regression/function.png" height="900" width="900">
+![](/files/complex_regression/function.png)
 
 Finally in the `generate_sample`{.python} method, we add a normally distributed amount of noise to each evaluation of the function. We can specify 
 `var_scale`{.python}, a constant that is multiplied by our covariance matrix to determine the
@@ -108,7 +108,7 @@ spread of our added noise. I have chosen to make this covariance matrix diagonal
 
 Calling this method with `test.generate_sample(var_scale= .1, plot = True)`{.python} gives:
 
-<img src="/files/complex_regression/sample.png" height="900" width="900">
+![](/files/complex_regression/sample.png)
 
 ## Implementing Linear Regression
 
@@ -199,7 +199,8 @@ residual = pd.DataFrame(values)
 
 Here is the data frame (as appears in Jupyter):
 
-<img src="/files/complex_regression/df.png">
+
+![](/files/complex_regression/df.png)
 
 I have also included a method to visualize these residuals and return the mean loss (the difference in modulus between predicted and actual values):
 
@@ -209,6 +210,6 @@ reg.residual(W, Z, plot = True)
 
 The above shows that the prediction has a mean modulus loss of 0.40703018315821154 and provides the following plot:
 
-<img src="/files/complex_regression/residuals.png" height="900" width="900">
+![](/files/complex_regression/residuals.png)
 
 Code used in this article can be found [here](https://github.com/chenson2018/website-code/tree/master/Regression%20with%20Complex%20Numbers%20in%20Python).
