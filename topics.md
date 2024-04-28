@@ -1,6 +1,5 @@
 ---
 title: Topics
-hide_title: true
 ---
 
 ## Topics

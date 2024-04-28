@@ -1,6 +1,5 @@
 ---
 title: Posts
-hide_title: true
 ---
 
 Hi, welcome to my website! I occasionally post articles here about math, statistics, and programming. 

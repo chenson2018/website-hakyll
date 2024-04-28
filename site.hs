@@ -18,7 +18,8 @@ main = hakyll $ do
       compile $ do
         posts <- loadAll tagsPattern >>= recentFirst
         let postsCtx =
-              constField "title" ("Topic: " ++ tagStr)
+              constField "show_title" ""
+                <> constField "title" ("Topic: " ++ tagStr)
                 <> listField "posts" postCtx (return posts)
                 <> defaultContext
         makeItem ""

@@ -1,6 +1,5 @@
 ---
 title: About Me
-hide_title: true
 ---
 
 ## About Me
