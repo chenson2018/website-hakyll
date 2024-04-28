@@ -152,6 +152,9 @@ article .header {
     float: left;
     font-size: 1.6rem;
   }
+  pre.sourceCode {
+    width: 60rem;
+  }
 }
 
 pre.sourceCode {
