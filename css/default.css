@@ -91,9 +91,6 @@ article .header {
     display: block;
     line-height: 1.6;
   }
-  pre.sourceCode {
-    max-width: 90%;
-  }
 }
 
 @media (min-width: 320px) {
@@ -123,9 +120,6 @@ article .header {
   nav a {
     display: inline;
     margin: 0 0.2rem;
-  }
-  pre.sourceCode {
-    max-width: 90%;
   }
 }
 
@@ -158,9 +152,6 @@ article .header {
     float: left;
     font-size: 1.6rem;
   }
-  pre.sourceCode {
-    max-width: 60rem;
-  }
 }
 
 img {
@@ -170,6 +161,8 @@ img {
 div.sourceCode {
   padding: 2px;
   border: 1px solid #888;
+  overflow: auto;
+  max-width: 100%;
 }
 
 .sourceCode {
