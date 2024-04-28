@@ -152,14 +152,13 @@ article .header {
     float: left;
     font-size: 1.6rem;
   }
+  pre.sourceCode {
+    padding: 2px;
+    border: 1px solid #888;
+  }
 }
 
 /* for inline code */
 .sourceCode {
   background: #020209;
-}
-
-pre.sourceCode {
-  padding: 2px;
-  border: 1px solid #888;
 }
