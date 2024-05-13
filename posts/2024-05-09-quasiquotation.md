@@ -179,18 +179,8 @@ would allow quasiquoters for types and declarations which we don't have a use
 for here, but might make sense for instance in a typed lambda calculus that
 uses Haskell types.
 
-That's all! Recall that I mentioned that we can also use quasiquoters in
-patterns. Here's an example of what that looks like:
-
-```haskell
-free :: Exp -> [Var]
-free [ex| $v:x |] = [x]
-free [ex| λ$v:v . $e:e|] = free e \\ [v]
-free [ex| $e:e1 $e:e2|] = free e1 `union` free e2
-```
-
-It is a bit noisy, but potentially useful for more nested patterns. Here is
-another more involved example that might this clear:
+Recall that I mentioned that we can also use quasiquoters in patterns. Here's
+an example of what that looks like:
 
 ```haskell
 toChurch :: Int -> Exp
@@ -203,6 +193,22 @@ toChurch n = full_beta [ex| $e:scc $e:prev |]
 fromChurch :: Exp -> Maybe Int
 fromChurch [ex| λs. λz. z|] = Just 0
 fromChurch [ex| λs. λz. s $e:e|] = (+1) <$> fromChurch [ex| λs. λz. $e:e|]
+fromChurch _ = Nothing
+```
+
+Without quasiquotation, this would be much more difficult to read:
+
+```haskell
+toChurch :: Int -> Exp
+toChurch 0 = Lam (V "s") $ Lam (V "z") (Var $ V "z")
+toChurch n = full_beta $ App scc prev
+  where
+    scc = Lam (V "n") $ Lam (V "s") $ Lam (V "z") $ App (Var $ V "s") (App (App (Var $ V "n") (Var $ V "s")) (Var $ V "z"))
+    prev = toChurch $ n - 1
+
+fromChurch :: Exp -> Maybe Int
+fromChurch (Lam (V "s") (Lam (V "z") (Var (V "z")))) = Just 0
+fromChurch (Lam (V "s") (Lam (V "z") (App (Var (V "s")) e))) = (+1) <$> fromChurch (Lam (V "s") (Lam (V "z") e))
 fromChurch _ = Nothing
 ```
 
