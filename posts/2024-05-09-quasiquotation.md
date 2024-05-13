@@ -189,6 +189,23 @@ free [ex| λ$v:v . $e:e|] = free e \\ [v]
 free [ex| $e:e1 $e:e2|] = free e1 `union` free e2
 ```
 
-It is a bit noisy, but potentially useful for more nested patterns. My main
-difficulties in writing this were not really technical, but in finding
-documentation. Hopefully this will help the next person that comes along!
+It is a bit noisy, but potentially useful for more nested patterns. Here is
+another more involved example that might this clear:
+
+```haskell
+toChurch :: Int -> Exp
+toChurch 0 = [ex| λs. λz. z|]
+toChurch n = full_beta [ex| $e:scc $e:prev |]
+  where
+    scc = [ex|λn. λs. λz. s (n s z)|]
+    prev = toChurch $ n - 1
+
+fromChurch :: Exp -> Maybe Int
+fromChurch [ex| λs. λz. z|] = Just 0
+fromChurch [ex| λs. λz. s $e:e|] = (+1) <$> fromChurch [ex| λs. λz. $e:e|]
+fromChurch _ = Nothing
+```
+
+My main difficulties in writing this post were not really technical, but in
+finding documentation. Hopefully this will help the next person that comes
+along!
