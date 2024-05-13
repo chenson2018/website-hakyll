@@ -56,11 +56,11 @@ Lam (V "s") (Lam (V "z") (App (Var (V "s")) (App (Var (V "s")) (App (Var (V "s")
 ```
 
 Here the examples are some arithmetic with Church-encoded numerals. I think the
-appeal is pretty immediately obvious. It is much nicer to be able able to write
-our lambda calculus terms in this recognizable format, and the second example
-shows how we can embed Haskell terms as well. In fact, quasiquotation can even
-be used within patterns! It should also be noted that all of this is happening
-at compile time.
+appeal is pretty immediately obvious. It is much nicer to be able to write our
+lambda calculus terms in this recognizable format, and the second example shows
+how we can embed Haskell terms as well. In fact, quasiquotation can even be
+used within patterns! It should also be noted that all of this is happening at
+compile time.
 
 So, what all was required to set this up? It really is not that bad. Here are
 the types for the lambda calculus:
