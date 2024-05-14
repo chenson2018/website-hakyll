@@ -25,7 +25,6 @@ is probably simplest to just see an example:
 
 ```haskell
 {-# LANGUAGE QuasiQuotes #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Main where
 
