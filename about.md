@@ -28,3 +28,5 @@ Email: [ch3473@drexel.edu ](mailto:ch3473@drexel.edu)
 GitHub: [chenson2018](https://github.com/chenson2018/)
 \
 Twitter: [\_chenson\_\_](https://twitter.com/_chenson__)
+\
+LinkedIn [Christopher Henson](https://www.linkedin.com/in/christopher-henson/)
