@@ -7,6 +7,13 @@ import Skylighting.Format.HTML (styleToCss)
 import Skylighting.Styles (kate)
 import Skylighting.Types hiding (Context, Item)
 import qualified Data.Map as Map
+import Text.Pandoc.Definition
+import Text.Pandoc.Walk (walkM)
+import Control.Monad ((>=>))
+import Data.ByteString.Lazy.Char8 (pack, unpack)
+import qualified Network.URI.Encode as URI (encode)
+import qualified Data.Text as Text
+import Text.Pandoc.SideNote
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -52,8 +59,7 @@ main = hakyll $ do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        let writer = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "", writerHighlightStyle = Just customHighlight}
-        compile $ pandocCompilerWith defaultHakyllReaderOptions writer
+        compile $ postCompiler
             >>= loadAndApplyTemplate "templates/post.html"    (tagsField "tags" tags <> postCtx)
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
@@ -82,6 +88,17 @@ main = hakyll $ do
     match "templates/*" $ compile templateBodyCompiler
 
 --------------------------------------------------------------------------------
+
+postCompiler :: Compiler (Item String)
+postCompiler = 
+  let writeOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax ""
+                                                , writerHighlightStyle = Just customHighlight} 
+  in
+  pandocCompilerWithTransformM 
+    defaultHakyllReaderOptions 
+    writeOptions
+    (walkM tikzFilter . usingSideNotes)
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
@@ -128,3 +145,17 @@ customHighlight =
             defStyle { tokenColor = Just (RGB 237 234 222), tokenBold = True } 
           $ tokenStyles kate
     }
+
+-- for TikZ diagrams, adapted from https://taeer.bar-yam.me/blog/posts/hakyll-tikz/
+
+tikzFilter :: Block -> Compiler Block
+tikzFilter (CodeBlock (id, "tikzpicture":extraClasses, namevals) contents) =
+  (imageBlock . ("data:image/svg+xml;utf8," ++) . URI.encode . filter (/= '\n') . itemBody <$>) $
+    makeItem (Text.unpack contents)
+     -- >>= loadAndApplyTemplate (fromFilePath "templates/tikz.tex") (bodyField "body")
+     >>= withItemBody (return . pack
+                       >=> unixFilterLBS "rubber-pipe" ["--pdf"]
+                       >=> unixFilterLBS "pdftocairo" ["-svg", "-", "-"]
+                       >=> return . unpack)
+  where imageBlock fname = Para [Image (id, "tikzpicture":extraClasses, namevals) [] (Text.pack fname, "")]
+tikzFilter x = return x
