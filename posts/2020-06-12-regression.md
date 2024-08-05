@@ -3,7 +3,7 @@ title: What is Regression?
 tags: Statistics
 ---
 
-*A pdf document with the same content is availible [here](/files/regression/regression.pdf).*
+*A pdf document with the same content is available [here](/files/regression/regression.pdf).*
 
 Linear regression is a fundamental aspect of statistics, universally taught in any introductory course. However, what it truly represents and how it functions
 is often presented in a disjointed way that does not reveal the surprising depth of connections to various mathematical areas, from calculus to sampling distributions. 
@@ -71,7 +71,7 @@ $$
 \widehat{\beta_1} = \frac{\sum_{i=1}^n(x_i y_i - x_i\bar{y})}{\sum_{i=1}^n(x_i^2 - x_i\bar{x})} 
 $$
 
-Notice again the hat to represent a particuliar solution. A little rearranging gives the following:
+Notice again the hat to represent a particular solution. A little rearranging gives the following:
 
 $$
 \widehat{\beta_1} = \frac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{ \sum_{i=1}^n(x_i - \bar{x})^2}
@@ -150,7 +150,7 @@ $$
 
 ## Bessel's Correction
 
-One important distintion to make with the above is that this is the definition for the *population* variance. 
+One important distinction to make with the above is that this is the definition for the *population* variance. 
 
 Let's be clear about our definitions of different symbols. 
 Suppose we have a variable $X$. Then the population parameters, taken across every instance of $X$, are: 
@@ -226,7 +226,7 @@ $$
 \widehat{y_i} = \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + \dots + \beta_p x_{i,p}
 $$
 
-A convenient way to represent this is through matrices, which I denote with bolded letters. I will write the following to represent a dataset with $n$ observations:
+A convenient way to represent this is through matrices, which I denote with bold letters. I will write the following to represent a dataset with $n$ observations:
 
 $$
 \textbf{y} = 
