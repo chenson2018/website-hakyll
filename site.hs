@@ -1,5 +1,9 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE LambdaCase        #-}
+{-# LANGUAGE BlockArguments    #-}
+{-# LANGUAGE ViewPatterns      #-}
+
 import Data.Monoid (mappend)
 import Hakyll
 import Text.Pandoc.Options (writerHTMLMathMethod, writerHighlightStyle, HTMLMathMethod(MathJax))
@@ -14,6 +18,7 @@ import Data.ByteString.Lazy.Char8 (pack, unpack)
 import qualified Network.URI.Encode as URI (encode)
 import qualified Data.Text as Text
 import Text.Pandoc.SideNote
+import Data.Maybe
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -41,11 +46,6 @@ main = hakyll $ do
     match "favicon.ico" $ do
         route   idRoute
         compile copyFileCompiler
-
-    create ["css/syntax.css"] $ do
-      route idRoute
-      compile $ do
-        makeItem $ styleToCss customHighlight
 
     match "css/*" $ do
         route   idRoute
@@ -91,13 +91,10 @@ main = hakyll $ do
 
 postCompiler :: Compiler (Item String)
 postCompiler = 
-  let writeOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax ""
-                                                , writerHighlightStyle = Just customHighlight} 
-  in
   pandocCompilerWithTransformM 
     defaultHakyllReaderOptions 
-    writeOptions
-    (walkM tikzFilter . usingSideNotes)
+    defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax ""} 
+    (walkM tikzFilter >=> pygmentsHighlight . usingSideNotes)
 
 postCtx :: Context String
 postCtx =
@@ -113,38 +110,19 @@ defaultCtxWithTags tags = listField "tags" tagsCtx getAllTags `mappend` defaultC
     getAllTags = pure . map (\x@(t, _) -> Item (tagsMakeId tags t) x) $ tagsMap tags
     tagsCtx = foldl1 mappend [metadataField, urlField "url", titleField "title"]
 
--- a somewhat custom style for syntax highlighting
--- see https://hackage.haskell.org/package/skylighting-0.4/docs/src/Skylighting-Styles.html#kate
-
-customHighlight :: Style
-customHighlight = 
-  kate 
-    { 
-        backgroundColor = Just (RGB 2 2 9)
-      , lineNumberBackgroundColor = Just (RGB 2 2 9)
-      , defaultColor = Just (RGB 237 234 222)
-      , tokenStyles = 
-          Map.insert 
-            KeywordTok 
-            defStyle { tokenColor = Just (RGB 255 85 0), tokenBold = True } 
-          .
-          Map.insert 
-            ControlFlowTok
-            defStyle { tokenColor = Just (RGB 255 85 0), tokenBold = True } 
-          .
-          Map.insert 
-            OperatorTok
-            defStyle { tokenColor = Just (RGB 237 234 222), tokenBold = True } 
-          .
-          Map.insert 
-            ControlFlowTok
-            defStyle { tokenColor = Just (RGB 255 85 0), tokenBold = True } 
-          .
-          Map.insert 
-            NormalTok
-            defStyle { tokenColor = Just (RGB 237 234 222), tokenBold = True } 
-          $ tokenStyles kate
-    }
+pygmentsHighlight :: Pandoc -> Compiler Pandoc
+pygmentsHighlight = walkM \case
+  CodeBlock (_, listToMaybe -> mbLang, _) (Text.unpack -> body) -> do
+    let lang = Text.unpack (fromMaybe "text" mbLang)
+    RawBlock "html" . Text.pack <$> callPygs lang body
+  block -> pure block
+ where
+  callPygs :: String -> String -> Compiler String
+  callPygs lang = unixFilter "pygmentize" [ "-l", lang
+                                          , "-f", "html"
+                                          , "-P", "cssclass=highlight-" <> lang
+                                          , "-P", "cssstyles=padding-left: 1em;"
+                                            ]
 
 -- for TikZ diagrams, adapted from https://taeer.bar-yam.me/blog/posts/hakyll-tikz/
 

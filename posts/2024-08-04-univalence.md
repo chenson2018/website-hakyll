@@ -157,11 +157,11 @@ over the ***fibers*** of our space. Diagrammatically we have something like:
 ```
 
 The difference is that we potentially can have much more structure on this
-identity type than we usual equality. We can have paths not just between points,
-but between paths, corresponding to the idea of homotopy above. The difference
-between equivalence in usual type theories and univalent foundations lies in
-what axioms we adopt regarding how much structure is allowed in these higher
-order identity types.
+identity type than we do with usual equality. We can have paths not just between
+points, but between paths, corresponding to the idea of homotopy above. The
+difference between equivalence in usual type theories and univalent foundations
+lies in what axioms we adopt regarding how much structure is allowed in these
+higher order identity types.
 
 One approach, for instance in Lean 4, is to add as an axiom[^axiom] that all proofs of
 identity are equal, that is:
@@ -199,7 +199,7 @@ $$
 $$
 
 which intuitively allows us to transform an isomorphism between types into an
-(path) equality on these types. Taking this as an axiom, a choice inconsistent
+equality (path) on these types. Taking this as an axiom, a choice inconsistent
 with UIP, is a core idea of univalent foundations.
 
 The practical appeal is not too difficult to see. It is not uncommon to have
@@ -241,7 +241,7 @@ and at the bottom of this hierarchy we provide some suggestive names:
 \operatorname{isProp}(X : \operatorname{Type})  & := \operatorname{isofhlevel} (1, X) \\
                                                 & := \prod_{x \, x' : X} \, \operatorname{isContr(x \rightsquigarrow_X x')} \\
 \\
-\operatorname{Prop} & := \sum_{X : \operatorname{Type}} \operatorname{isProp}(X)
+\operatorname{Prop}_X & := \sum_{X : \operatorname{Type}} \operatorname{isProp}(X)
 \end{align}
 
 and
@@ -250,21 +250,13 @@ and
 \operatorname{isSet }(X : \operatorname{Type})  & := \operatorname{isofhlevel} (2, X) \\
                                                 & := \prod_{x \, x' : X} \, \operatorname{isProp (x \rightsquigarrow_X x')}
 \\
-\operatorname{Set} & := \sum_{X : \operatorname{Type}} \operatorname{isSet}(X)
+\operatorname{Set}_X & := \sum_{X : \operatorname{Type}} \operatorname{isSet}(X)
 \end{align}
 
 For clarity, I will refer to these as h-propositions and h-sets respectively,
 though they are often (somewhat confusingly) mentioned without the h- prefix.
 This notion of h-set by definition is exactly corresponding to identifying types
 that satisfy the uniqueness of identity proofs.
-
-Note that despite the names "Prop" and "Set", these are not universes in the
-sense the terminology is used in proof assistants! This remains a bit of a point
-of confusion for myself, so I'll refrain from commenting too much on this point.
-They *do* seem to be related concepts, as our univalent foundations has an
-analog of the Curry-Howard isomorphism where terms of h-proposition types are
-interpreted as proofs. My understanding however is that these remain somewhat
-orthogonal considerations.
 
 So where exactly does this show up? There are a few theorems that I think give
 some intuition for where h-levels are relevant in types that are familiar. The
@@ -273,14 +265,24 @@ booleans, is an h-set. Note that the converse is not necessarily true, with the
 most instructive example being Prop, which is an h-set but certainly not
 decidable.
 
-TODO : Coq syntax highlighting
+Note that despite the names "Prop" and "Set", these are not universes in the
+sense the terminology is used in proof assistants! This is all the
+more confusing because there is a relationship, but intuitively as
+an analog with the Curry-Howard isomorphism and through an sometimes
+additionally added axiom of ***propositional resizing*** of the equivalence
 
-Another instructive example is found by looking at the definition of a category
-in the UniMath library:
+$$
+\operatorname{Prop}_{X_i} \simeq \operatorname{Prop}_{X_{i+1}}
+$$ 
 
-```haskell
+which introduces a notion of impredicativity. 
+
+Another instructive example is found by looking at the [definition of a category
+in the UniMath library](https://github.com/UniMath/UniMath/blob/a56ead15131851e924f8e975635e3180a8e0f09f/UniMath/CategoryTheory/Core/Categories.v#L160):
+
+```coq
+(* leaving out some details here... *)
 Definition has_homsets (C : precategory_ob_mor) : UU := ∏ a b : C, isaset (a --> b).
-
 Definition category := ∑ C:precategory, has_homsets C.
 ```
 
@@ -337,7 +339,7 @@ $(base \rightsquigarrow_{S^1} base) \rightsquigarrow \mathbb{Z}$. Philosophical
 considerations aside, the definition of $S^1$ that we would like to work with is
 something like
 
-```haskell
+```coq
 inductive S1
   | base
   | loop : base = base
@@ -348,12 +350,61 @@ higher inductive types. The approach taken in the summer school was to simply
 state as an axiom the `loop` piece, along with the recursion and inductive
 principles.
 
-TODO : code here
+```coq
+Module Export S1.
+  Private Inductive S1 : UU := base : S1.
+  Axiom loop : base = base.
+  Definition S1_ind (P : S1 -> UU) (b : P base) (l : PathOver loop b b) (x : S1) : P x :=
+    match x with base => b end.
+  Definition S1_rec (A : UU) (b : A) (l : b = b) : S1 -> A :=
+    S1_ind (λ _, A) b (PathOverConstant_map1 loop l).
+  Axiom S1_ind_beta_loop : forall (P : S1 -> UU) (b : P base) (l : PathOver loop b b), apd (S1_ind P b l) loop = l.
+  Axiom S1_rec_beta_loop : forall (A : UU) (b : A) (l : b = b), maponpaths (S1_rec A b l) loop = l.
+End S1.
+```
 
-TODO : note about PAs with HI types
+This is pretty hacky, but I think fine for a summer school exercise. If it truly
+hurts your soul, you can always use cubical Agda or any of the other proof
+assistants that support higher inductive types.
 
-TODO: the rest of the proof....
-TODO: et this working with Alectryon
+The definitions for integers are pretty standard, so I'll omit them here. The
+direction from integers to paths is pretty simple:
+
+```coq
+(* 
+    Notations:
+        `!` is the inverse path
+        `@` is path composition 
+*)
+
+(** The definition for non-negative numbers `Pos n`. *)
+Fixpoint loopexpPos (n : nat) : base = base :=
+  match n with
+    | 0 => idpath base
+    | S n => loopexpPos n @ loop
+  end.
+
+(** The definition for negative numbers `NegS n`. *)
+Fixpoint loopexpNegS (n : nat) : base = base :=
+  match n with
+    | 0 => ! loop
+    | S n => loopexpNegS n @ ! loop
+  end.
+
+(** The conversion from loops to numbers. Think about the numbers as
+  * an "encoding" of loops. In the case of the circle, this is also
+  * called "winding numbers". *)
+Definition loopexp (x : Z) : base = base :=
+  match x with
+    | Pos n => loopexpPos n
+    | NegS n => loopexpNegS n
+  end.
+```
+
+As we described earlier, it is simply repeating the traversal or reverse
+traversal of our loop.
+
+TODO : rest of proof
 
 ## References
 
