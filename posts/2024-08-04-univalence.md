@@ -115,11 +115,12 @@ integers $(\mathbb{Z}, +)$. Intuitively we can see this by viewing each
 traversal or inverse traversal of the circle as the successor or predecessor
 function on the integers.
 
-The last useful definition to have at our disposal is that of a ***covering
-space***. Intuitively, given some space $X$, a covering space $\tilde X$ is a
-space that has multiple copies of the space via some continuous map $p : \tilde
-X \to X$. The more formal definition is that for any $x \in X$, there is an open cover
-$\{U_\alpha\}$ that homeomorphically maps the disjoint union $p^{-1}(U_\alpha)$.
+Another useful definition is that of a ***covering space***. Intuitively, given
+some space $X$, a covering space $\tilde X$ is a space that has multiple copies
+of the space via some continuous map $p : \tilde X \to X$. The more formal
+definition is that for any $x \in X$, there is an open neighbourhood $U_x$ such
+that $p^{-1}(U_x)$ is a disjoint union of open sets that homeomorphically maps
+into $X$.
 
 ```{.tikzpicture style="height: 300px; background-color: white;"}
 % https://commons.wikimedia.org/wiki/File:Covering_space_diagram.jpg
@@ -129,13 +130,14 @@ $\{U_\alpha\}$ that homeomorphically maps the disjoint union $p^{-1}(U_\alpha)$.
 \begin{document}
 \begin{tikzpicture}[scale=1.0,x=1cm,y=1cm]
 \filldraw[fill=white, draw=black,thick] (0,1) node{} ellipse (1.6 and 0.5);
-\node(text) at (-2.7,1) {\large $U_\alpha$};
+\node[outer sep=0pt,circle, fill,inner sep=1pt,label={left:$x$}] (a) at (0, 1) {};
+\node(text) at (-2.7,1) {\large $U_x$};
 \path[black,->,>=stealth] (0,3.2) edge node[auto]{\large $p$} (0,1.8);
 \filldraw[fill=white, draw=black,thick] (0,4) node{} ellipse (1.6 and 0.5);
 \filldraw[fill=white, draw=black,thick] (0,4.5) node{} ellipse (1.6 and 0.5);
 \node(text) at (0,5.4) {$\vdots$};
 \filldraw[fill=white, draw=black,thick] (0,6.1) node{} ellipse (1.6 and 0.5);
-\draw[decorate,decoration={brace,amplitude=0.3cm},xshift=-0.1cm,yshift=0pt] (-1.7,4) -- (-1.7,6.1) node[black,midway,xshift=-1.2cm] {\large $p^{-1}(U_\alpha)$};
+\draw[decorate,decoration={brace,amplitude=0.3cm},xshift=-0.1cm,yshift=0pt] (-1.7,4) -- (-1.7,6.1) node[black,midway,xshift=-1.2cm] {\large $p^{-1}(U_x)$};
 \end{tikzpicture}
 \end{document}
 ```
