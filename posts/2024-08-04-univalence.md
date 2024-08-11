@@ -488,10 +488,9 @@ Definition Cover : S1 -> UU :=
   S1_rec UU Z (weqtopaths succ_equiv).
 ```
 
-where succ_equiv is the equivalence we get from $\operatorname{pred} \cong \operatorname{succ} \to \mathbb{Z} \simeq \mathbb{Z}$.
-
-[^weqtopaths]: The lemma weqtopaths is just the previously mentioned application
-    of univalence to transform an equivalence into a path equality.
+where succ_equiv is the equivalence we get from $\operatorname{pred} \cong
+\operatorname{succ} \to \mathbb{Z} \simeq \mathbb{Z}$ and the lemma weqtopaths
+uses univalence to transform this equivalence into a path equality.
 
 So now we are looking for two functions with slightly more general types
 
