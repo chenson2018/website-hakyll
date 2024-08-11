@@ -229,6 +229,7 @@ div .sidenote pre {
 
 .sidenote-number {
     counter-increment: sidenote-counter;
+    color: #6495ED;
 }
 
 .sidenote-number:after,
