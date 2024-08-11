@@ -4,7 +4,7 @@ tags: Coq, Univalence, Homotopy Type Theory
 hide_post: true
 ---
 
-I spent last week at the [2024 School on Univalent
+I recently attended the [2024 School on Univalent
 Mathematics](https://unimath.github.io/minneapolis2024/). For the last couple of
 years I've had some interest from a distance in univalence and homotopy type
 theory but not taken the plunge, so I was excited that this iteration of the
@@ -28,7 +28,7 @@ glaring to ignore, please let me know.
 ## Homotopy
 
 To understand some of the motivation behind univalent foundations, it is helpful
-to have some previous knowledge from algebraic topology. The essential idea is
+to have some previous knowledge from algebraic topology. One essential idea is
 that given some path in a space, we want consider the family of paths that are
 continuous deformations from each other. 
 
@@ -156,7 +156,7 @@ a helix with projections onto the plane[^diag].
   \begin{tikzpicture}[xscale=1.4,yscale=.6]
     \node (R) at (2,1) {$\mathbb{R}$};
     \node (S1) at (2,-2) {$S^1$};
-    \draw[->] (R) -- node[auto] {$w$} (S1);
+    \draw[->] (R) -- node[auto] {$p$} (S1);
     \draw (0,-2) ellipse (1 and .4);
     \draw[dotted] (1,0) arc (0:-30:1 and .8);
     \draw (1,0) arc (0:90:1 and .8) arc (90:270:1 and .3) coordinate (t1);
@@ -318,7 +318,7 @@ and
 \end{align}
 
 For clarity, I will refer to these as h-propositions and h-sets respectively,
-though they are often (somewhat confusingly) mentioned without the prefix.
+though they are often somewhat confusingly mentioned without the prefix.
 This notion of h-set by definition is exactly corresponding to identifying types
 that satisfy the uniqueness of identity proofs.
 
@@ -342,7 +342,9 @@ $$
 which introduces a notion of impredicativity. 
 
 Another instructive example is found by looking at the [definition of a category
-in the UniMath library](https://github.com/UniMath/UniMath/blob/a56ead15131851e924f8e975635e3180a8e0f09f/UniMath/CategoryTheory/Core/Categories.v#L160):
+in the UniMath library](https://github.com/UniMath/UniMath/blob/a56ead15131851e924f8e975635e3180a8e0f09f/UniMath/CategoryTheory/Core/Categories.v#L160)[^uu]:
+
+[^uu]: UU is a synonym for Type used by UniMath. 
 
 ```coq
 (* leaving out some details here... *)
@@ -418,8 +420,9 @@ Inductive S1
 ```
 
 Our issue is that this is not a legal definition in Coq, which does not have
-[higher inductive types](https://ncatlab.org/nlab/show/higher+inductive+type).
-The approach taken in the summer school was to simply [state as an
+[higher inductive types](https://ncatlab.org/nlab/show/higher+inductive+type)
+that would allow the loop constructor. The approach taken in the summer school
+was to simply [state as an
 axiom](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L5)
 the `loop` piece, along with the recursion and induction principles.
 
@@ -427,7 +430,7 @@ Before diving in, let's look at how what we are going to prove in this synthetic
 setting as out calculation of the fundamental group. The final theorem will
 be[^ls]
 
-[^ls]: This theorem is named Omega because this is really showing a calculation
+[^ls]: This theorem is named this way because this is really showing a calculation
     of the [loop space](https://en.wikipedia.org/wiki/Loop_space) $\Omega(S^1)$,
     which in the case of the circle is the same as the fundamental group.
 
@@ -513,21 +516,23 @@ $$
 \end{align}
 $$
 
-and completes the proof! The key point here is understand the induction and recursion principles for
-$S^1$, which is unfortunately made a bit murky by the axiomatic formulation. The
-rough intuition is that Cover allows us to use transport to relate paths of $S^1$ and integers. So lifting our earlier definition $\phi$ is not so difficult
+and completes the proof! The key point here is understand the induction and
+recursion principles for $S^1$, which are unfortunately made a bit murky by the
+axiomatic formulation. The rough intuition is that Cover allows us to use
+transport to relate paths of $S^1$ and integers. So lifting our earlier
+definition $\phi$ is not so difficult
 
 $$
     \operatorname{encode}(p : \operatorname{base} \rightsquigarrow x) := \operatorname{transport}(\operatorname{Cover}, p, 0)
 $$
 
-For the opposite direction decode, we want to construct the inverse in the
-opposite direction. This is not as nice to write down as a term, since reversing
-the direction of transport is more naturally done in proof mode using the
-induction principle for $S^1$. While I could muddle through the details here, I
-think my anticlimactic suggestion is to work through the proof yourself if you'd
-like a complete understanding! Given the constrained nature of $S^1$, so long as
-you end up with a term of type $\operatorname{Cover} x \to (\operatorname{base}
-\rightsquigarrow x)$ I think it is nearly impossible to end up with something
-that doesn't satisfy the required isomorphism $\operatorname{encode} \cong
+For decode, we want to construct the inverse in the opposite direction. This is
+not as nice to write down as a term, since reversing the direction of transport
+is more naturally done in proof mode using the induction principle for $S^1$.
+While I could muddle through the details here, I think my anticlimactic
+suggestion is to work through the proof yourself if you'd like a complete
+understanding! Given the constrained nature of $S^1$, so long as you end up with
+a term of type $\operatorname{Cover} x \to (\operatorname{base} \rightsquigarrow
+x)$ I think it is nearly impossible to end up with something that doesn't
+satisfy the required isomorphism $\operatorname{encode} \cong
 \operatorname{decode}$.
