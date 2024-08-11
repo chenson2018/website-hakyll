@@ -1,6 +1,7 @@
 ---
 title: 2024 School on Univalent Mathematics
 tags: Coq, Univalence, Homotopy Type Theory
+hide_post: true
 ---
 
 I spent last week at the [2024 School on Univalent
@@ -96,13 +97,14 @@ $\pi_1(X, x_0)$, actually forms a group called the ***fundamental group***[^base
 the group action is the composition of paths, and inverses correspond to
 traversing the path in the opposite direction.
 
-[^base_note]: When our space is simply connected the choice of basepoint is irrelevant
+[^base_note]: When our space is path connected the choice of basepoint is irrelevant
       up to isomorphism, so we can simply write $\pi_1(X)$.
 
 We can view the fundamental group as a way to study topological spaces in terms
-of groups. If we consider ***pointed topological spaces***, simply a space $X$
-with some identified basepoint $x_0$, then in category theoretic terms the
-fundamental group is a functor $\pi_1 \colon \mathbf{Top}^{* \downarrow} \to
+of groups. If we consider [***pointed topological
+spaces***](https://ncatlab.org/nlab/show/pointed+topological+space), simply a
+space $X$ with some identified basepoint $x_0$, then in category theoretic terms
+the fundamental group is a functor $\pi_1 \colon \mathbf{Top}^{* \downarrow} \to
 \mathbf{Grp}$ from the category of pointed topological spaces to the category of
 groups. This idea of forming an algebraic viewpoint of a topological space is a
 powerful idea that lies at the essence of algebraic topology.
@@ -112,6 +114,68 @@ circle $S^1$, for which $\pi_1(S^1)$ is isomorphic to the additive group of
 integers $(\mathbb{Z}, +)$. Intuitively we can see this by viewing each
 traversal or inverse traversal of the circle as the successor or predecessor
 function on the integers.
+
+The last useful definition to have at our disposal is that of a ***covering
+space***. Intuitively, given some space $X$, a covering space $\tilde X$ is a
+space that has multiple copies of the space via some continuous map $p : \tilde
+X \to X$. The more formal definition is that for any $x \in X$, there is an open cover
+$\{U_\alpha\}$ that homeomorphically maps the disjoint union $p^{-1}(U_\alpha)$.
+
+```{.tikzpicture style="height: 300px; background-color: white;"}
+% https://commons.wikimedia.org/wiki/File:Covering_space_diagram.jpg
+\documentclass[12pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\begin{document}
+\begin{tikzpicture}[scale=1.0,x=1cm,y=1cm]
+\filldraw[fill=white, draw=black,thick] (0,1) node{} ellipse (1.6 and 0.5);
+\node(text) at (-2.7,1) {\large $U_\alpha$};
+\path[black,->,>=stealth] (0,3.2) edge node[auto]{\large $p$} (0,1.8);
+\filldraw[fill=white, draw=black,thick] (0,4) node{} ellipse (1.6 and 0.5);
+\filldraw[fill=white, draw=black,thick] (0,4.5) node{} ellipse (1.6 and 0.5);
+\node(text) at (0,5.4) {$\vdots$};
+\filldraw[fill=white, draw=black,thick] (0,6.1) node{} ellipse (1.6 and 0.5);
+\draw[decorate,decoration={brace,amplitude=0.3cm},xshift=-0.1cm,yshift=0pt] (-1.7,4) -- (-1.7,6.1) node[black,midway,xshift=-1.2cm] {\large $p^{-1}(U_\alpha)$};
+\end{tikzpicture}
+\end{document}
+```
+
+In the case when the map $p$ is simply connected, we are guaranteed to have a
+***universal covering space***[^uni], a covering which is unique up to isomorphism. In the case of the circle $S^1$, we
+have the real line $\mathbb{R}$ as the universal covering space, often viewed as
+a helix with projections onto the plane[^diag].
+
+[^diag]: This diagram is from [Calculating the Fundamental Group of the Circle in Homotopy Type Theory](https://arxiv.org/abs/1301.3443)
+
+```{.tikzpicture style="height: 300px; background-color: white;"}
+\documentclass[border=2mm]{standalone}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\begin{document}
+  \begin{tikzpicture}[xscale=1.4,yscale=.6]
+    \node (R) at (2,1) {$\mathbb{R}$};
+    \node (S1) at (2,-2) {$S^1$};
+    \draw[->] (R) -- node[auto] {$w$} (S1);
+    \draw (0,-2) ellipse (1 and .4);
+    \draw[dotted] (1,0) arc (0:-30:1 and .8);
+    \draw (1,0) arc (0:90:1 and .8) arc (90:270:1 and .3) coordinate (t1);
+    \draw[white,line width=4pt] (t1) arc (-90:90:1 and .8);
+    \draw (t1) arc (-90:90:1 and .8) arc (90:270:1 and .3) coordinate (t2);
+    \draw[white,line width=4pt] (t2) arc (-90:90:1 and .8);
+    \draw (t2) arc (-90:90:1 and .8) arc (90:270:1 and .3) coordinate (t3);
+    \draw[white,line width=4pt] (t3) arc (-90:90:1 and .8);
+    \draw (t3) arc (-90:-30:1 and .8) coordinate (t4);
+    \draw[dotted] (t4) arc (-30:0:1 and .8);
+    \node[fill,circle,inner sep=1pt,label={below:\scriptsize \ensuremath{\text{base}}}] at (0,-2.4) {};
+    \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 0}] at (0,.2) {};
+    \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 1}] at (0,1.2) {};
+    \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 2}] at (0,2.2) {};
+  \end{tikzpicture}
+\end{document}
+```
+
+[^uni]: Universal in the category theory sense.
 
 ## Univalent Foundations
 
@@ -254,7 +318,7 @@ and
 \end{align}
 
 For clarity, I will refer to these as h-propositions and h-sets respectively,
-though they are often (somewhat confusingly) mentioned without the h- prefix.
+though they are often (somewhat confusingly) mentioned without the prefix.
 This notion of h-set by definition is exactly corresponding to identifying types
 that satisfy the uniqueness of identity proofs.
 
@@ -267,8 +331,8 @@ decidable.
 
 Note that despite the names "Prop" and "Set", these are not universes in the
 sense the terminology is used in proof assistants! This is all the
-more confusing because there is a relationship, but intuitively as
-an analog with the Curry-Howard isomorphism and through an sometimes
+more confusing because there is a relationship, both intuitively as
+an analog with the Curry-Howard isomorphism and through the sometimes
 additionally added axiom of ***propositional resizing*** of the equivalence
 
 $$
@@ -314,7 +378,15 @@ tutorial](https://arend-lang.github.io/documentation/tutorial/PartII/hits.html),
 the Agda [HoTT Game](https://homotopytypetheory.org/2021/12/01/the-hott-game/),
 or [this
 exercise](https://github.com/UniMath/Schools/blob/master/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v)
-from the School on Univalent Mathematics.
+from the School on Univalent Mathematics. 
+
+I'll focus on presenting the last link, the exercise that I completed during the
+summer school. Deciding what level of detail to present here is a bit tricky. In
+the words of Pólya, "Mathematics, you see, is not a spectator sport.", so it is
+not really helpful to go through the details that are inscrutable unless you are
+actually working through the proofs yourself. So I'll just show a few highlights
+of definitions that give the flavor of the proof, and hope that the motivated
+reader will be interested enough to attempt the full exercise themselves.
 
 For anyone who has ever worked with real numbers, continuous maps, or
 topological spaces in a proof assistant, you might have the inclination to
@@ -334,103 +406,128 @@ development of geometry.
     Shulman](https://proofassistants.stackexchange.com/a/201/588) for some
     relevant discussion. 
 
-What follows is my solution to the final exercises from the summer school, that
-$(base \rightsquigarrow_{S^1} base) \rightsquigarrow \mathbb{Z}$. Philosophical
-considerations aside, the definition of $S^1$ that we would like to work with is
-something like
+Philosophical considerations aside, the definition of $S^1$ that we would like
+to work with is something like[^eq]
+
+[^eq]: In all Coq code "=" means "$\rightsquigarrow$"
 
 ```coq
-inductive S1
+Inductive S1
   | base
   | loop : base = base
 ```
 
 Our issue is that this is not a legal definition in Coq, which does not have
-higher inductive types. The approach taken in the summer school was to simply
-state as an axiom the `loop` piece, along with the recursion and inductive
-principles.
+[higher inductive types](https://ncatlab.org/nlab/show/higher+inductive+type).
+The approach taken in the summer school was to simply [state as an
+axiom](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L5)
+the `loop` piece, along with the recursion and induction principles.
+
+Before diving in, let's look at how what we are going to prove in this synthetic
+setting as out calculation of the fundamental group. The final theorem will
+be[^ls]
+
+[^ls]: This theorem is named Omega because this is really showing a calculation
+    of the [loop space](https://en.wikipedia.org/wiki/Loop_space) $\Omega(S^1)$,
+    which in the case of the circle is the same as the fundamental group.
 
 ```coq
-Module Export S1.
-  Private Inductive S1 : UU := base : S1.
-  Axiom loop : base = base.
-  Definition S1_ind (P : S1 -> UU) (b : P base) (l : PathOver loop b b) (x : S1) : P x :=
-    match x with base => b end.
-  Definition S1_rec (A : UU) (b : A) (l : b = b) : S1 -> A :=
-    S1_ind (λ _, A) b (PathOverConstant_map1 loop l).
-  Axiom S1_ind_beta_loop : forall (P : S1 -> UU) (b : P base) (l : PathOver loop b b), apd (S1_ind P b l) loop = l.
-  Axiom S1_rec_beta_loop : forall (A : UU) (b : A) (l : b = b), maponpaths (S1_rec A b l) loop = l.
-End S1.
+Theorem Omega1S1 : (base = base) ≃ Z.
 ```
 
-This is pretty hacky, but I think fine for a summer school exercise. If it truly
-hurts your soul, you can always use cubical Agda or any of the other proof
-assistants that support higher inductive types.
+In order to prove this, we'll use the following theorem that transforms
+isomorphisms into equivalences:
 
-The definitions for integers are pretty standard, so I'll omit them here. The
-direction from integers to paths is pretty simple:
+$$
+\prod_{f : X \to Y} \prod_{g : Y \to X} f \cong g \to X \simeq Y
+$$
+
+where $f \cong g$ means that we have both
+
+$$
+\begin{align}
+\prod_{x : X} (g \circ \, f) x &\rightsquigarrow x \\
+\prod_{y : Y} (f \circ \, g) y &\rightsquigarrow y \\
+\end{align}
+$$
+
+One direction is not so difficult to decide upon. Consider the integers as the
+coproduct $\mathbb{Z} = \mathbb{N} \coprod \mathbb{N}$, with the left
+representing $\mathbb{Z}^- = \{-1, -2, \dots \}$ and the right the inclusion of
+the natural numbers into the integers. Then the map $\phi : \mathbb{Z} \to
+(\operatorname{base} \rightsquigarrow \operatorname{base})$ is [defined
+by](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L51)
+
+$$
+\begin{align}
+\phi(+(n + 1)) &= \operatorname{loop} \circ \, \phi(+n)  \\
+\phi(0) &= \operatorname{idpath}(\operatorname{base}) \\
+\phi(-(n + 1)) &= \overline{\operatorname{loop}} \circ \, \phi(-n)
+\end{align}
+$$
+
+where idpath is the reflexive identity path and the overline notation indicates
+the inverse path[^cons]. Again we are just traversing the loop or its inverse
+for each integer.
+
+[^cons]: The plus signs are written here explicitly to emphasize that $+$ and $-$ and the constructors of the coproduct type.
+
+The opposite direction turns out to be much more difficult. It turns out that
+things actually end up a bit easier if we consider general paths and then get
+the special case of loops $\operatorname{base} \rightsquigarrow
+\operatorname{base}$. To help with this, we will define the universal covering
+space of $S^1$ as[^weqtopaths] 
 
 ```coq
-(* 
-    Notations:
-        `!` is the inverse path
-        `@` is path composition 
-*)
-
-(** The definition for non-negative numbers `Pos n`. *)
-Fixpoint loopexpPos (n : nat) : base = base :=
-  match n with
-    | 0 => idpath base
-    | S n => loopexpPos n @ loop
-  end.
-
-(** The definition for negative numbers `NegS n`. *)
-Fixpoint loopexpNegS (n : nat) : base = base :=
-  match n with
-    | 0 => ! loop
-    | S n => loopexpNegS n @ ! loop
-  end.
-
-(** The conversion from loops to numbers. Think about the numbers as
-  * an "encoding" of loops. In the case of the circle, this is also
-  * called "winding numbers". *)
-Definition loopexp (x : Z) : base = base :=
-  match x with
-    | Pos n => loopexpPos n
-    | NegS n => loopexpNegS n
-  end.
+Definition Cover : S1 -> UU :=
+  S1_rec UU Z (weqtopaths succ_equiv).
 ```
 
-As we described earlier, it is simply repeating the traversal or reverse
-traversal of our loop.
+where succ_equiv is the equivalence we get from $\operatorname{pred} \cong \operatorname{succ} \to \mathbb{Z} \simeq \mathbb{Z}$.
 
-TODO : rest of proof
+[^weqtopaths]: The lemma weqtopaths is just the previously mentioned application
+    of univalence to transform an equivalence into a path equality.
 
-## References
+So now we are looking for two functions with slightly more general types
 
-TODO: organize this lol, maybe integrate into the article...
+$$
+\begin{align}
+\operatorname{encode} &: \prod_{x : S^1} (\operatorname{base} \rightsquigarrow x) \to \operatorname{Cover} x \\
+\operatorname{decode} &: \prod_{x : S^1} \operatorname{Cover} x \to (\operatorname{base} \rightsquigarrow x)
+\end{align}
+$$
 
-https://github.com/JetBrains/arend-lib/blob/master/src/Homotopy/Sphere/Circle.ard
+which have an isomorphism $\operatorname{encode} \cong \operatorname{decode}$
+that implies
 
-https://arend-lang.github.io/documentation/language-reference/definitions/hits.html
+$$
+\prod_{x : S^1} (\operatorname{base} \rightsquigarrow x) \simeq \operatorname{Cover} x
+$$
 
-https://arend-lang.github.io/documentation/tutorial/PartII/hits.html
+which when specialized to base gives
 
-https://unimath.github.io/Schools/#school-on-univalent-mathematics-minneapolis-2024
+$$
+\begin{align}
+(\operatorname{base} \rightsquigarrow \operatorname{base}) &\simeq \operatorname{Cover} \operatorname{base} \\
+                                                           &\simeq \mathbb{Z}
+\end{align}
+$$
 
-https://ncatlab.org/nlab/show/pointed+topological+space
+and completes the proof! The key point here is understand the induction and recursion principles for
+$S^1$, which is unfortunately made a bit murky by the axiomatic formulation. The
+rough intuition is that Cover allows us to use transport to relate paths of $S^1$ and integers. So lifting our earlier definition $\phi$ is not so difficult
 
-https://ncatlab.org/nlab/show/comma+category
+$$
+    \operatorname{encode}(p : \operatorname{base} \rightsquigarrow x) := \operatorname{transport}(\operatorname{Cover}, p, 0)
+$$
 
-https://ncatlab.org/nlab/show/h-set
-
-https://ncatlab.org/nlab/show/fundamental+group
-
-https://ncatlab.org/nlab/show/synthetic+homotopy+theory
-
-https://www.ams.org/notices/201309/rnoti-p1164.pdf
-
-https://arend-lang.github.io/documentation/language-reference/definitions/hits.html
-
-[Algebraic Topology](https://pi.math.cornell.edu/~hatcher/AT/AT.pdf) \
-
+For the opposite direction decode, we want to construct the inverse in the
+opposite direction. This is not as nice to write down as a term, since reversing
+the direction of transport is more naturally done in proof mode using the
+induction principle for $S^1$. While I could muddle through the details here, I
+think my anticlimactic suggestion is to work through the proof yourself if you'd
+like a complete understanding! Given the constrained nature of $S^1$, so long as
+you end up with a term of type $\operatorname{Cover} x \to (\operatorname{base}
+\rightsquigarrow x)$ I think it is nearly impossible to end up with something
+that doesn't satisfy the required isomorphism $\operatorname{encode} \cong
+\operatorname{decode}$.
