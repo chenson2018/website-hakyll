@@ -30,7 +30,7 @@ A key idea of univalent foundations is that would like to replace the usual
 notion of equality $x = y$ with the notion of there being a path $x
 \rightsquigarrow y$, so it is helpful to have some relevant background from
 algebraic topology. One essential idea is that given some path in a space, we
-want consider the family of paths that are continuous deformations from each
+want to consider the family of paths that are continuous deformations from each
 other. 
 
 It is not too onerous to state this formally, taking definitions from
@@ -430,7 +430,7 @@ that would allow the loop constructor. The approach taken in the summer school
 was to simply [state as an
 axiom](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L5)
 the loop piece, along with the recursion and induction principles. The most
-important piece to understand here is the induction principle, which is
+important piece to understand here is the induction principle
 
 $$
     \operatorname{ind}_{S^1} : 
@@ -554,17 +554,16 @@ is nearly impossible to end up with something that doesn't satisfy the required
 isomorphism $\operatorname{encode} \cong \operatorname{decode}$.
 
 As a final note, it is not too difficult to see that $S^1$ cannot be an
-h-set[^goid]. First, note that we must have
+h-set[^goid]. First, we must have
 
 $$
     \neg (\operatorname{idpath} \operatorname{base} \rightsquigarrow \operatorname{loop})
 $$
 
 otherwise the isomorphism $\operatorname{encode} \cong \operatorname{decode}$
-would give the immediate contradiction $0 \rightsquigarrow 1$. With this
-established, we immediately cannot have that $S^1$ is an h-set, as it would
-imply that all paths $p : \operatorname{base} \rightsquigarrow
-\operatorname{base}$ are equal.
+would give the contradiction $0 \rightsquigarrow 1$. With this established, we
+immediately cannot have that $S^1$ is an h-set, as it would imply that all paths
+$p : \operatorname{base} \rightsquigarrow \operatorname{base}$ are equal.
 
 [^goid]: It can be
     [proven](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_solutions.v#L332)
