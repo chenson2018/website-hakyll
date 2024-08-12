@@ -27,10 +27,12 @@ glaring to ignore, please let me know.
 
 ## Homotopy
 
-To understand some of the motivation behind univalent foundations, it is helpful
-to have some previous knowledge from algebraic topology. One essential idea is
-that given some path in a space, we want consider the family of paths that are
-continuous deformations from each other. 
+A key idea of univalent foundations is that would like to replace the usual
+notion of equality $x = y$ with the notion of there being a path $x
+\rightsquigarrow y$, so it is helpful to have some relevant background from
+algebraic topology. One essential idea is that given some path in a space, we
+want consider the family of paths that are continuous deformations from each
+other. 
 
 It is not too onerous to state this formally, taking definitions from
 [Hatcher](https://pi.math.cornell.edu/~hatcher/AT/AT.pdf). Given a topological
@@ -181,11 +183,13 @@ a helix with projections onto the plane[^diag].
 
 ## Univalent Foundations
 
-So, what is the relevance of all this to type theory? A key idea will be that we
-would like to replace the usual notion of equality $x = y$ with the notion of
-there being a path $x \rightsquigarrow y$. In some senses this does behave like
-classical equality. Paths are an equivalence relation, and we can rewrite with
-paths in the sense that there is a function:
+So, what is the relevance of all this to type theory? Remember that we would
+like to replace the usual notion of equality $x = y$ with the notion of there
+being a path $x \rightsquigarrow y$ considered up to homotopy equivalence. 
+
+In some senses this does behave like classical equality. Paths are an
+equivalence relation, and we can rewrite with paths in the sense that there is a
+function:
 
 $$
 \operatorname{transport} : \prod (X \, Y : \operatorname{Type}) (P : X \to Y) (x \, x' : X), \, (x \rightsquigarrow x') \to P(x) \to P(x')
