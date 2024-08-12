@@ -430,7 +430,7 @@ that would allow the loop constructor. The approach taken in the summer school
 was to simply [state as an
 axiom](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L5)
 the `loop` piece, along with the recursion and induction principles. The most
-import piece to understand here is the induction principle, which is
+important piece to understand here is the induction principle, which is
 
 $$
     \operatorname{ind}_{S^1} : 
@@ -438,8 +438,8 @@ $$
             \sum_{y : P(\operatorname{base})} \operatorname{transport}(\operatorname{loop}, y) \to \prod_{x : S^1} P(x) \right )
 $$
 
-which intuitively states that if we can transport some  from the base
-of the circle to its loops, then the predicate is satisfied for all loops.
+which intuitively states that if we can transport a function from the base of
+the circle to its loops, then the function is satisfied for all of $S^1$.
 Recursion is then just a special case which allows us to transform an equality
 on some type into a function from the circle into that type
 
@@ -448,7 +448,7 @@ $$
 $$
 
 Before diving in, let's look at how what we are going to prove in this synthetic
-setting as out calculation of the fundamental group. The final theorem will
+setting our calculation of the fundamental group. The final theorem will
 be[^ls]
 
 [^ls]: This theorem is named this way because this is really showing a calculation
@@ -496,11 +496,11 @@ for each integer.
 
 [^cons]: The plus signs are written here explicitly to emphasize that $+$ and $-$ and the constructors of the coproduct type.
 
-The opposite direction turns out to be much more difficult. It turns out that
-things actually end up a bit easier if we consider general paths and then get
-the special case of loops $\operatorname{base} \rightsquigarrow
+The opposite direction is a bit more difficult. It turns out that things
+actually end up a bit easier if we consider paths with one fixed endpoint and
+then get the special case of loops $\operatorname{base} \rightsquigarrow
 \operatorname{base}$. To help with this, we will define the universal covering
-space of $S^1$ as[^weqtopaths] 
+space of $S^1$ as
 
 ```coq
 Definition Cover : S1 -> UU :=
@@ -588,8 +588,8 @@ found to be very readable. It has three parts:
 - "The Univalent Foundations for Mathematics", which covers in more depth much
   of the same material from the summer school and this post
 - "Synthetic Homotopy Theory", which begins at the same point of working with
-  $S^1$ but continues into much depth
+  $S^1$ but continues much further
 
-While I am just a beginning to learn a bit of this area, I think it is quite
-exciting. Thank you again to the organizers and sponsors of the 2024 School on
+While I am just beginning to learn a bit of this area, I think it is quite
+exciting. Thank you to all the organizers and sponsors of the 2024 School on
 Univalent Mathematics for providing this opportunity to get started!
