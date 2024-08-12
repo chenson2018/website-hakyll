@@ -1,7 +1,6 @@
 ---
 title: 2024 School on Univalent Mathematics
 tags: Coq, Univalence, Homotopy Type Theory
-hide_post: true
 ---
 
 I recently attended the [2024 School on Univalent
@@ -430,7 +429,23 @@ Our issue is that this is not a legal definition in Coq, which does not have
 that would allow the loop constructor. The approach taken in the summer school
 was to simply [state as an
 axiom](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L5)
-the `loop` piece, along with the recursion and induction principles.
+the `loop` piece, along with the recursion and induction principles. The most
+import piece to understand here is the induction principle, which is
+
+$$
+    \operatorname{ind}_{S^1} : 
+        \prod_{P : S^1 \to \operatorname{Type}} \left (
+            \sum_{y : P(\operatorname{base})} \operatorname{transport}(\operatorname{loop}, y) \to \prod_{x : S^1} P(x) \right )
+$$
+
+which intuitively states that if we can transport some  from the base
+of the circle to its loops, then the predicate is satisfied for all loops.
+Recursion is then just a special case which allows us to transform an equality
+on some type into a function from the circle into that type
+
+$$
+    \operatorname{rec}_{S^1} : \prod (X : \operatorname{Type}) (x : X), \, (x \rightsquigarrow x) \to S^1 \to X \\
+$$
 
 Before diving in, let's look at how what we are going to prove in this synthetic
 setting as out calculation of the fundamental group. The final theorem will
@@ -541,3 +556,21 @@ a term of type $\operatorname{Cover} x \to (\operatorname{base} \rightsquigarrow
 x)$ I think it is nearly impossible to end up with something that doesn't
 satisfy the required isomorphism $\operatorname{encode} \cong
 \operatorname{decode}$.
+
+## Conclusion
+
+Of course, this is just a small taste! If you are interested in learning more, I
+particularly suggest Egbert Rijke's [Introduction to Homotopy Type
+Theory](https://arxiv.org/abs/2212.11082). This is a newer book that I have
+found to be very readable. It has three parts:
+
+- "Martin-Löf’s Dependent Type Theory", which covers traditional type theory,
+  but with an interesting slant towards topics relevant to univalence
+- "The Univalent Foundations for Mathematics", which covers in more depth much
+  of the same material from the summer school and this post
+- "Synthetic Homotopy Theory", which begins at the same point of working with
+  $S^1$ but continues into much depth
+
+While I am just a beginning to learn a bit of this area, I think it is quite
+exciting. Thank you again to the organizers and sponsors of the 2024 School on
+Univalent Mathematics for providing this opportunity to get started!
