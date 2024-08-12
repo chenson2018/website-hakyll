@@ -362,7 +362,7 @@ would expect, just the standard rules for identity and composition. The
 interesting piece here is the requirement that the morphisms form h-sets. After
 a bit of thought and some explanations from Benedikt Ahrens and Niels van der
 Weide during the summer school, this restriction makes sense to me as a way of
-ensuring that our definition that corresponds to a category. My intuition is
+ensuring that our definition actually corresponds to a category. My intuition is
 roughly that without this restriction we would have something that looks more
 like a higher category. Without the uniqueness of identity proofs that we have
 at the h-set level, our proof obligations for the category laws could become in
@@ -556,6 +556,25 @@ a term of type $\operatorname{Cover} x \to (\operatorname{base} \rightsquigarrow
 x)$ I think it is nearly impossible to end up with something that doesn't
 satisfy the required isomorphism $\operatorname{encode} \cong
 \operatorname{decode}$.
+
+As a final note, it is not too difficult to see that $S^1$ cannot be an
+h-set[^goid]. First, note that we must have
+
+$$
+    \neg (\operatorname{idpath} \operatorname{base} \rightsquigarrow \operatorname{loop})
+$$
+
+otherwise the isomorphism $\operatorname{encode} \cong \operatorname{decode}$
+would give the immediate contradiction $0 \rightsquigarrow 1$. With this
+established, we immediately cannot have that $S^1$ is an h-set, as it would
+imply that all paths $p : \operatorname{base} \rightsquigarrow
+\operatorname{base}$ are equal.
+
+[^goid]: It can be
+    [proven](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_solutions.v#L332)
+    to be one level higher at h-level 3, commonly referred to as a
+    ***groupoid***. This proof is much more difficult, it is the one exercise
+    that I haven't finished!
 
 ## Conclusion
 
