@@ -429,7 +429,7 @@ Our issue is that this is not a legal definition in Coq, which does not have
 that would allow the loop constructor. The approach taken in the summer school
 was to simply [state as an
 axiom](https://github.com/UniMath/Schools/blob/40ffe12b81e72c3635f5c3f390451b3729387ee3/2024-07-Minneapolis/7_Synthetic-Homotopy-Theory/circle_exercises.v#L5)
-the `loop` piece, along with the recursion and induction principles. The most
+the loop piece, along with the recursion and induction principles. The most
 important piece to understand here is the induction principle, which is
 
 $$
@@ -447,9 +447,9 @@ $$
     \operatorname{rec}_{S^1} : \prod (X : \operatorname{Type}) (x : X), \, (x \rightsquigarrow x) \to S^1 \to X \\
 $$
 
-Before diving in, let's look at how what we are going to prove in this synthetic
-setting our calculation of the fundamental group. The final theorem will
-be[^ls]
+Before diving in, let's look at what exactly what we are going to prove in this
+synthetic setting as our calculation of the fundamental group. The final theorem
+will be[^ls]
 
 [^ls]: This theorem is named this way because this is really showing a calculation
     of the [loop space](https://en.wikipedia.org/wiki/Loop_space) $\Omega(S^1)$,
@@ -491,7 +491,7 @@ $$
 $$
 
 where idpath is the reflexive identity path and the overline notation indicates
-the inverse path[^cons]. Again we are just traversing the loop or its inverse
+the inverse path[^cons]. Again, we are just traversing the loop or its inverse
 for each integer.
 
 [^cons]: The plus signs are written here explicitly to emphasize that $+$ and $-$ and the constructors of the coproduct type.
@@ -536,26 +536,22 @@ $$
 \end{align}
 $$
 
-and completes the proof! The key point here is understand the induction and
-recursion principles for $S^1$, which are unfortunately made a bit murky by the
-axiomatic formulation. The rough intuition is that Cover allows us to use
-transport to relate paths of $S^1$ and integers. So lifting our earlier
-definition $\phi$ is not so difficult
+and completes the proof! Lifting our earlier definition $\phi$ is not so
+difficult
 
 $$
     \operatorname{encode}(p : \operatorname{base} \rightsquigarrow x) := \operatorname{transport}(\operatorname{Cover}, p, 0)
 $$
 
-For decode, we want to construct the inverse in the opposite direction. This is
-not as nice to write down as a term, since reversing the direction of transport
-is more naturally done in proof mode using the induction principle for $S^1$.
-While I could muddle through the details here, I think my anticlimactic
-suggestion is to work through the proof yourself if you'd like a complete
-understanding! Given the constrained nature of $S^1$, so long as you end up with
-a term of type $\operatorname{Cover} x \to (\operatorname{base} \rightsquigarrow
-x)$ I think it is nearly impossible to end up with something that doesn't
-satisfy the required isomorphism $\operatorname{encode} \cong
-\operatorname{decode}$.
+and for decode, we just want to construct the inverse. This is not as nice to
+write down as a term, since reversing the direction of transport is more
+naturally done in proof mode using the induction principle for $S^1$. While I
+could muddle through the details here, I think my anticlimactic suggestion is to
+work through the proof yourself if you'd like a complete understanding! Given
+the constrained nature of $S^1$, so long as you end up with a term of type
+$\operatorname{Cover} x \to (\operatorname{base} \rightsquigarrow x)$ I think it
+is nearly impossible to end up with something that doesn't satisfy the required
+isomorphism $\operatorname{encode} \cong \operatorname{decode}$.
 
 As a final note, it is not too difficult to see that $S^1$ cannot be an
 h-set[^goid]. First, note that we must have
@@ -580,15 +576,12 @@ imply that all paths $p : \operatorname{base} \rightsquigarrow
 
 Of course, this is just a small taste! If you are interested in learning more, I
 particularly suggest Egbert Rijke's [Introduction to Homotopy Type
-Theory](https://arxiv.org/abs/2212.11082). This is a newer book that I have
+Theory](https://github.com/martinescardo/HoTTEST-Summer-School/blob/main/HoTT/hott-intro.pdf). This is a newer book that I have
 found to be very readable. It has three parts:
 
-- "Martin-Löf’s Dependent Type Theory", which covers traditional type theory,
-  but with an interesting slant towards topics relevant to univalence
-- "The Univalent Foundations for Mathematics", which covers in more depth much
-  of the same material from the summer school and this post
-- "Synthetic Homotopy Theory", which begins at the same point of working with
-  $S^1$ but continues much further
+- ***Martin-Löf’s Dependent Type Theory***: traditional type theory with an interesting slant towards topics relevant to univalence
+- ***The Univalent Foundations for Mathematics***: much of the material from the summer school and this post considered in more depth
+- ***Synthetic Homotopy Theory***: begins at the same point of working with $S^1$ but continues much further
 
 While I am just beginning to learn a bit of this area, I think it is quite
 exciting. Thank you to all the organizers and sponsors of the 2024 School on
