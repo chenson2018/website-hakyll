@@ -497,8 +497,8 @@ for each integer.
 [^cons]: The plus signs are written here explicitly to emphasize that $+$ and $-$ and the constructors of the coproduct type.
 
 The opposite direction is a bit more difficult. It turns out that things
-actually end up a bit easier if we consider paths with one fixed endpoint and
-then get the special case of loops $\operatorname{base} \rightsquigarrow
+actually end up easier if we consider paths with one fixed endpoint and then get
+the special case of loops $\operatorname{base} \rightsquigarrow
 \operatorname{base}$. To help with this, we will define the universal covering
 space of $S^1$ as
 
