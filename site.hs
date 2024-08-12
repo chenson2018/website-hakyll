@@ -112,17 +112,19 @@ defaultCtxWithTags tags = listField "tags" tagsCtx getAllTags `mappend` defaultC
 
 pygmentsHighlight :: Pandoc -> Compiler Pandoc
 pygmentsHighlight = walkM \case
-  CodeBlock (_, listToMaybe -> mbLang, _) (Text.unpack -> body) -> do
-    let lang = Text.unpack (fromMaybe "text" mbLang)
-    RawBlock "html" . Text.pack <$> callPygs lang body
+  CodeBlock (_, mbLang : tl, _) (Text.unpack -> body) -> do
+    let lang = Text.unpack mbLang
+    let lines = "numberLines" `elem` map Text.unpack tl
+    RawBlock "html" . Text.pack <$> callPygs lang lines body
   block -> pure block
  where
-  callPygs :: String -> String -> Compiler String
-  callPygs lang = unixFilter "pygmentize" [ "-l", lang
+  callPygs :: String -> Bool -> String -> Compiler String
+  callPygs lang lines = unixFilter "pygmentize" ([ "-l", lang
                                           , "-f", "html"
                                           , "-P", "cssclass=highlight-" <> lang
                                           , "-P", "cssstyles=padding-left: 1em;"
-                                            ]
+                                            ] 
+                                            ++ if lines then ["-P", "linenos=table"] else [])
 
 -- for TikZ diagrams, adapted from https://taeer.bar-yam.me/blog/posts/hakyll-tikz/
 
