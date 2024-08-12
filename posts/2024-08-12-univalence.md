@@ -1,6 +1,6 @@
 ---
 title: 2024 School on Univalent Mathematics
-tags: Coq, Univalence, Homotopy Type Theory
+tags: Conferences, Coq, Univalence, Homotopy Type Theory
 ---
 
 I recently attended the [2024 School on Univalent
