@@ -433,3 +433,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .vi { color: #00cdcd } /* Name.Variable.Instance */
 .vm { color: #00cdcd } /* Name.Variable.Magic */
 .il { color: #cd00cd } /* Literal.Number.Integer.Long */
+
+code {
+  background: #020209;
+}
