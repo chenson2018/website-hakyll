@@ -4,15 +4,15 @@ title: About Me
 
 ## About Me
 
-I am a first-year CS PhD student at Drexel University, advised by [Colin
+I am a second-year CS PhD student at Drexel University, advised by [Colin
 Gordon](https://www.cs.drexel.edu/~csg63/). My research interests are broadly in
 Programming Languages. 
 
 Some topics that I am currently interested in:
 
-- differing models of type theories
 - category theory and its relevance to proof assistants
 - functional programming with dependent types and effects
+- the intersection of model theory and programming languages
 
 Before coming to Drexel, I spent three years at Bank of America's Quantitative
 Finance group in Atlanta. During this time I worked primarily with code related
