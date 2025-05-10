@@ -1,3 +1,19 @@
+table tr td {
+  border-right:2px solid #EDEADE;
+  border-left:2px solid #EDEADE;
+  border-bottom:2px solid #EDEADE;
+  padding:5px 10px;
+}
+
+th { 
+  border-bottom: 1px solid #EDEADE;
+  color: #EDEADE
+}
+
+table {
+  border-collapse: collapse;
+}
+
 a {
   color: #6495ED
 }
