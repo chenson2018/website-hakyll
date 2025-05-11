@@ -79,16 +79,16 @@ and resources that I have found helpful:
 
 &nbsp;
 
-| Link | Explanation | 
-| --- | --- |
-| <https://github.com/chenson2018/LeanScratch> | My own repo of miscellaneous Lean formalizations that includes the untyped lambda calculus in both the de Bruijn index and locally nameless approaches, each with a proof of confluence |
-| <https://gist.github.com/siraben/ee3f16bf501ab7ecb49d63ecd3a2d2b1> | A Rocq formalization of the untyped lambda calculus that I found useful when I wanted to prove some lemmas about confluence over generalized relations |
-| <https://github.com/rami3l/PLFaLean> | A Lean implementation of part 2 and 3 of PLFA |
-| <https://github.com/ElifUskuplu/Stlc_deBruijn> | A Lean formalization of STLC that takes the locally nameless approach |
-| <https://github.com/goodlyrottenapple/lamYcalc?tab=readme-ov-file> | Agda and Isabelle formalizations of the λ-Y calculus |
-| <https://github.com/Lysxia/system-F> | A Rocq implementation of System F that includes a proof of parametricity |
-| <https://github.com/yiyunliu> | Several nice Rocq formalizations, including Fω and STLC extended with pairs |
-| <https://github.com/sstucki/system-f-agda> | An Agda formalization of System F with iso-recursive types |
-| [System F in Agda, for Fun and Profit](https://homepages.inf.ed.ac.uk/wadler/papers/mpc-2019/system-f-in-agda.pdf) | An Agda formalization of System F$_\omega$$_\mu$ using intrinsic typing |
-| [POPLmark Challenge](https://www.seas.upenn.edu/~plclub/poplmark/) | Several formalizations of System F$_{<:}$ across different proof assistants. This is a bit older (early 2000s) but I think is still valuable for providing so many examples of different approaches. |
-| [The Lambda Calculus: Its Syntax and Semantics](https://www.amazon.com/Calculus-Semantics-Studies-Foundations-Mathematics/dp/0444875085) | The classic text by Barendregt on the untyped lambda calculus. While yellow math books have a reputation of instilling fear and bewilderment in their readers, I think this an excellently written book. It is definitely not a beginner text, but I highly recommend it after you feel comfortable with the other resources. |
+| Explanation  | Link | 
+| ---  | --- |
+| My own repo of miscellaneous Lean formalizations that includes the untyped lambda calculus in both the de Bruijn index and locally nameless approaches, each with a proof of confluence  | <https://github.com/chenson2018/LeanScratch> |
+| A Rocq formalization of the untyped lambda calculus that I found useful when I wanted to prove some lemmas about confluence over generalized relations  | <https://gist.github.com/siraben/ee3f16bf501ab7ecb49d63ecd3a2d2b1> |
+| A Lean implementation of part 2 and 3 of PLFA  | <https://github.com/rami3l/PLFaLean> |
+| A Lean formalization of STLC that takes the locally nameless approach  | <https://github.com/ElifUskuplu/Stlc_deBruijn> |
+| Agda and Isabelle formalizations of the λ-Y calculus  | <https://github.com/goodlyrottenapple/lamYcalc?tab=readme-ov-file> |
+| A Rocq implementation of System F that includes a proof of parametricity  | <https://github.com/Lysxia/system-F> |
+| Several nice Rocq formalizations, including Fω and STLC extended with pairs  | <https://github.com/yiyunliu> |
+| An Agda formalization of System F with iso-recursive types  | <https://github.com/sstucki/system-f-agda> |
+| An Agda formalization of System F$_\omega$$_\mu$ using intrinsic typing  | [System F in Agda, for Fun and Profit](https://homepages.inf.ed.ac.uk/wadler/papers/mpc-2019/system-f-in-agda.pdf) |
+| Several formalizations of System F$_{<:}$ across different proof assistants. This is a bit older (early 2000s) but I think is still valuable for providing so many examples of different approaches.  | [POPLmark Challenge](https://www.seas.upenn.edu/~plclub/poplmark/) |
+| The classic text by Barendregt on the untyped lambda calculus. While yellow math books have a reputation of instilling fear and bewilderment in their readers, I think this an excellently written book. It is definitely not a beginner text, but I highly recommend it after you feel comfortable with the other resources.  | [The Lambda Calculus: Its Syntax and Semantics](https://www.amazon.com/Calculus-Semantics-Studies-Foundations-Mathematics/dp/0444875085) |
