@@ -10,8 +10,18 @@ th {
   color: #EDEADE
 }
 
+td, th {
+    text-wrap: wrap;
+}
+
+td {
+    word-wrap: break-word;
+}
+
 table {
   border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
 }
 
 a {
