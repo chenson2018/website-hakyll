@@ -7,8 +7,8 @@ I recently attended the [2024 School on Univalent
 Mathematics](https://unimath.github.io/minneapolis2024/). For the last couple of
 years I've had some interest from a distance in univalence and homotopy type
 theory but not taken the plunge, so I was excited that this iteration of the
-school was a short trip to Minneapolis away. I had a wonderful time, and felt
-that the lectures and accompanying exercises using the Coq library
+school was a short trip to Minneapolis. I had a wonderful time, and felt that
+the lectures and accompanying exercises using the Coq library
 [UniMath](https://github.com/UniMath/UniMath) were structured in an accessible
 way. While "accessible" is certainly a subjective judgement tempered by my
 previous background, I felt there was special attention given to making the
@@ -26,7 +26,7 @@ glaring to ignore, please let me know.
 
 ## Homotopy
 
-A key idea of univalent foundations is that would like to replace the usual
+A key idea of univalent foundations is that we would like to replace the usual
 notion of equality $x = y$ with the notion of there being a path $x
 \rightsquigarrow y$, so it is helpful to have some relevant background from
 algebraic topology. One essential idea is that given some path in a space, we
