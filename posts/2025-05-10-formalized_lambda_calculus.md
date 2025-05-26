@@ -88,7 +88,9 @@ and resources that I have found helpful:
 | Agda and Isabelle formalizations of the λ-Y calculus  | <https://github.com/goodlyrottenapple/lamYcalc?tab=readme-ov-file> |
 | A Rocq implementation of System F that includes a proof of parametricity  | <https://github.com/Lysxia/system-F> |
 | Several nice Rocq formalizations, including Fω and STLC extended with pairs  | <https://github.com/yiyunliu> |
+| Several Rocq formalizations, with some attention towards less common topics such as correctness of CPS and small step versus big step semantics | <https://github.com/charguer/formalmetacoq> |
 | An Agda formalization of System F with iso-recursive types  | <https://github.com/sstucki/system-f-agda> |
+| An Agda formalization of PCF in  univalent type theory, along with its denotational semantics | <https://github.com/BrendanHart/Investigating-Properties-of-PCF/> |
 | An Agda formalization of System F$_\omega$$_\mu$ using intrinsic typing  | [System F in Agda, for Fun and Profit](https://homepages.inf.ed.ac.uk/wadler/papers/mpc-2019/system-f-in-agda.pdf) |
 | Several formalizations of System F$_{<:}$ across different proof assistants. This is a bit older (early 2000s) but I think is still valuable for providing so many examples of different approaches.  | [POPLmark Challenge](https://www.seas.upenn.edu/~plclub/poplmark/) |
 | Several formalizations of strong normalization for STLC | [POPLmark Reloaded](https://poplmark-reloaded.github.io/) |
