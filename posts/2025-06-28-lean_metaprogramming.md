@@ -84,11 +84,11 @@ numbers with the two chains $(0 → 2 → 4 → \dots)$ and $(1 → 3 → 5 → 
 With some renaming for readability, this generated definition is:
 ```lean
 def isEven.induct 
-  (P : Nat → Prop) (P₀ : P 0) (P₁ : P 1) (ind : ∀ n, P n → P (n+2)) (n : Nat) : P n := 
+  (P : Nat → Prop) (P0 : P 0) (P1 : P 1) (ind : ∀ n, P n → P (n+2)) (n : Nat) : P n := 
   match n with
-  | 0 => P₀
-  | 1 => P₁
-  | n'+2 => ind n' (Nat.ind2 P P₀ P₁ ind n')
+  | 0 => P0
+  | 1 => P1
+  | n'+2 => ind n' (Nat.ind2 P P0 P1 ind n')
 ```
 and in fact we could have essentially the same proof working directly with this
 generated principle:
