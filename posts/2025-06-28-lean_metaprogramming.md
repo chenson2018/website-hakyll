@@ -13,10 +13,10 @@ fully fledged expert in Lean's internals, but an example in one of [Nada
 Amin's](https://namin.seas.harvard.edu/) excellent [lectures](https://github.com/namin/metaprogramming) prompted me to write this
 short blog post covering some basics.
 
-In some sense, **every piece of Lean code is a metaprogram**, as Lean 4 is
+In some sense, ***every piece of Lean code is a metaprogram***, as Lean 4 is
 self-hosted. Every Lean program takes an internally defined inductive type of
 Lean syntax and transforms it into another inductive type representing a Lean
-expression[^syntaxexpr]. This process is called **elaboration**. This is not
+expression[^syntaxexpr]. This process is called ***elaboration***. This is not
 limited to just constructs of the language, but is extensible by the end-user
 who is provided the ability to create fully custom syntaxes and elaborations,
 written as plain Lean code within a hierarchy of monads[^meta].
