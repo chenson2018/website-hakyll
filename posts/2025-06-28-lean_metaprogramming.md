@@ -125,8 +125,8 @@ Now we are prepared to make use of the
 tactic. The intuition here is that given an instance of decidability, we should
 be able to traverse the corresponding decision procedure, along the way
 constructing our proof term. By default, this happens during elaboration, where
-the Lean compiler sees the syntax of the `decide`{.lean} tactic, and uses this
-to assemble the intended Lean expression. 
+the Lean compiler sees the syntax of the `decide`{.lean} tactic, then assembles
+the intended Lean expression. 
 
 Interestingly, this is also an extensible operation. You'll notice that one of
 the examples with a larger number uses the configuration `decide
