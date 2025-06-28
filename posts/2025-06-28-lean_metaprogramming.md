@@ -7,11 +7,10 @@ This week and next I am at the [Oregon Programming Languages Summer School
 (OPLSS)](https://www.cs.uoregon.edu/research/summerschool/summer25/index.php).
 With well over a hundred participants across academia and industry I have had
 ample opportunities to explain my research, including my choice to primarily use
-Lean for formalizations. One of the many reasons is its metaprogramming system,
+Lean for formalization. One of the many reasons is its metaprogramming system,
 which to my knowledge is unique among proof assistants. I don't claim to be a
 fully fledged expert in Lean's internals, but an example in one of [Nada
-Amin's](https://namin.seas.harvard.edu/)
-[lectures](https://github.com/namin/metaprogramming) prompted me to write this
+Amin's](https://namin.seas.harvard.edu/) excellent [lectures](https://github.com/namin/metaprogramming) prompted me to write this
 short blog post covering some basics.
 
 In some sense, **every piece of Lean code is a metaprogram**, as Lean 4 is
@@ -101,11 +100,11 @@ theorem isEven_iff' {n : Nat} : isEven n = true ↔ Even n := by
     next ih => exact ih h
   · intro h; induction h <;> simp [isEven, *]
 ```
-While I don't claim that this sort of induction is unique among proof
-assistants, I will emphasize again this code generation is all done via Lean's
-metaprogramming system, as part a general ability to derive induction principles
-from functions that exhibit structural, well-founded, and mutual recursion. This
-is a highly nontrivial development, comprising just over [1700 of Lean
+While I don't claim that this sort of induction is unique to Lean, I will
+emphasize again this code generation is all done via Lean's metaprogramming
+system. In general, Lean can derive induction principles for functions that
+exhibit structural, well-founded, and mutual recursion. This is a highly
+nontrivial development, comprising just over [1700 of Lean
 code](https://github.com/leanprover/lean4/blob/master/src/Lean/Meta/Tactic/FunInd.lean).
 For some introductory reading, I suggest [Joachim Breitner's blog post on
 functional
