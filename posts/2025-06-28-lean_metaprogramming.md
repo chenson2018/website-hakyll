@@ -88,7 +88,7 @@ def isEven.induct
   match n with
   | 0 => P0
   | 1 => P1
-  | n'+2 => ind n' (Nat.ind2 P P0 P1 ind n')
+  | n'+2 => ind n' (isEven.induct P P0 P1 ind n')
 ```
 and in fact we could have essentially the same proof working directly with this
 generated principle:
